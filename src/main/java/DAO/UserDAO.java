@@ -1,5 +1,9 @@
 package DAO;
 
-public class UserDAO {
+import Models.User;
+
+public interface UserDAO extends MainDAO<User> {
+	
+	public User getByUsername (String username);
 
 }
