@@ -1,8 +1,9 @@
 package DAO;
 
 import Models.Login;
+import Models.User;
 
-public interface LoginDAO {
+public interface LoginDAO extends MainDAO<User> {
   public Login logincheck (String login, String password);
-  public Login getemployeeNumberById(int id);
+
 }
