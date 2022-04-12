@@ -16,7 +16,7 @@ public class LoginDAOPostgres implements LoginDAO {
 	@Override
 	public Login logincheck(String login, String password) {
 		String loginsql = "SELECT LOGIN_ID \r\n"
-				+ "FROM USER \r\n"
+				+ "FROM USERS \r\n"
 				+ "WHERE LOGIN_ID = ?";
 		try {Connection connection = conncode.getConnection();
 		try (PreparedStatement logInPStatement = connection.prepareStatement(loginsql)){
@@ -111,12 +111,12 @@ public class LoginDAOPostgres implements LoginDAO {
 
 	@Override
 	public Login getemployeeNumberById(int id) {
-		String empNumByIdUrl = "SELECT  *\r\n"
+		String empNumByIdsql = "SELECT  *\r\n"
 				+ "FROM USER\r\n"
 				+ "WHERE  USERNUM = ?";
 
 		try {Connection connection = conncode.getConnection();
-			try (PreparedStatement employeeNumByIdPStatement = connection.prepareStatement(empNumByIdUrl)){
+			try (PreparedStatement employeeNumByIdPStatement = connection.prepareStatement(empNumByIdsql)){
 				
 				employeeNumByIdPStatement.setInt(1,id);
 				ResultSet rs = employeeNumByIdPStatement.executeQuery();

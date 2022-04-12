@@ -4,14 +4,14 @@ public class Reimbursement {
 	private int requestid;
 	private int userid;
 	private String description;
-	private double cost;
+	private double costs;
 	private String status; 
 	
 	public Reimbursement() {
 		this.requestid=requestid;
 		this.userid=userid;
 		this.description=description;
-		this.cost=cost;
+		this.costs=costs;
 		this.status=status;
 	}
 
@@ -40,11 +40,11 @@ public class Reimbursement {
 	}
 
 	public double getCost() {
-		return cost;
+		return costs;
 	}
 
 	public void setCost(double cost) {
-		this.cost = cost;
+		this.costs = cost;
 	}
 
 	public String getStatus() {
@@ -60,7 +60,7 @@ public class Reimbursement {
 		final int prime = 31;
 		int result = 1;
 		long temp;
-		temp = Double.doubleToLongBits(cost);
+		temp = Double.doubleToLongBits(costs);
 		result =prime*result +(int)(temp ^(temp>>>32));
 		result = prime*result +((description == null)?0:description.hashCode());
 		result = prime*result +userid;
@@ -78,7 +78,7 @@ public class Reimbursement {
 		if(getClass() != obj.getClass())
 			return false;
 		Reimbursement other =(Reimbursement) obj;
-		if (Double.doubleToLongBits(cost) != Double.doubleToLongBits(other.cost))
+		if (Double.doubleToLongBits(costs) != Double.doubleToLongBits(other.costs))
 			return false;
 		if (description == null) {
 			if (other.description != null)
@@ -100,7 +100,7 @@ public class Reimbursement {
 	@Override
 	public String toString() {
 		return "Reimbursement [requestid=" + requestid + ", userid=" + userid + ", description="
-				+ description + ", cost=" + cost + ", status=" + status + "]";
+				+ description + ", costs=" + costs + ", status=" + status + "]";
 	}
 	
 	

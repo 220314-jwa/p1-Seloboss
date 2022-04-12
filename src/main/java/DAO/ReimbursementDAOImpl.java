@@ -18,14 +18,14 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 		
 		Reimbursement rb = new Reimbursement();
 		
-		String str ="PENDING";
+		String str ="DECIDING";
 		int num = requestNumberCheck();
 		
 		System.out.println(num + "" +usernum);
 		
 		String reimbursementsql = "INSERT INTO REIMBURSEMENT \r\n" +"VALUES(?,?,?,?,?,)";
 		
-		String requestsql ="SELECT *\r\n" + "WHERE REQUEST_NUMBER =?";
+		String requestsql ="SELECT *\r\n" + "WHERE REQUEST_ID =?";
 		
 		try { Connection conn = conncode.getConnection();
 				try (PreparedStatement reimbursementPStatement = conn.prepareStatement(reimbursementsql);
@@ -41,7 +41,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 					 ResultSet rs = reqestCheckPStatement.executeQuery();
 					 
 					 while(rs.next()) {
-						 rb.setRequestid(rs.getInt("REQUESTID"));
+						 rb.setRequestid(rs.getInt("REQUEST_ID"));
 							rb.setUserid(rs.getInt("USERID"));
 							rb.setDescription(rs.getString("DESCRIPTION"));
 							rb.setCost(rs.getDouble("COST"));
@@ -56,7 +56,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 
 	private int requestNumberCheck() {
 		int requestId = 0; 
-		String requestNumberSql = "SELECT MAX(REQUESTID)\r\n"
+		String requestNumberSql = "SELECT MAX(REQUEST_ID)\r\n"
 				+ "FROM REIMBURSEMENT ";
 		try { Connection conn = conncode.getConnection();
 		try(PreparedStatement requestNumberPStatement = conn.prepareStatement(requestNumberSql)){
@@ -80,7 +80,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 		
 		String statusUpdatesql = "UPDATE REIMBURSEMENT\r\n"
 				+ "SET STATUS =  ?\r\n"
-				+ "WHERE REQUESTID = ?";
+				+ "WHERE REQUEST_ID = ?";
 		try { Connection conn = conncode.getConnection();
 		try(PreparedStatement statusUpdatePStatement = conn.prepareStatement(statusUpdatesql)){
 			 statusUpdatePStatement.setString(1, status);
@@ -102,7 +102,7 @@ Reimbursement rB = new Reimbursement();
 	    
 		String allPendingStatussql = "SELECT  *\r\n"
 				+ "FROM REIMBURSEMENT \r\n"
-				+ "WHERE  STATUS = 'PENDING'";
+				+ "WHERE  STATUS = 'DECIDING'";
 
 		try { Connection conn = conncode.getConnection();
 			try (PreparedStatement allPendingStatusPStatement = conn.prepareStatement(allPendingStatussql)){
@@ -110,7 +110,7 @@ Reimbursement rB = new Reimbursement();
 				
 				ResultSet rs = allPendingStatusPStatement.executeQuery();
 				while (rs.next()) {	
-					rB.setRequestid(rs.getInt("REQUESTID"));
+					rB.setRequestid(rs.getInt("REQUEST_ID"));
 					rB.setUserid(rs.getInt("USERID"));
 					rB.setDescription(rs.getString("DESCRIPTION"));
 					rB.setCost(rs.getDouble("COSTREQUESTED"));
@@ -150,7 +150,7 @@ Reimbursement rB = new Reimbursement();
 					pendingReqPStatement.setInt(1,id);
 					ResultSet rs = pendingReqPStatement.executeQuery();
 					while (rs.next()) {	
-						rB.setRequestid(rs.getInt("REQUESTID"));
+						rB.setRequestid(rs.getInt("REQUEST_ID"));
 						rB.setUserid(rs.getInt("USERID"));
 						rB.setDescription(rs.getString("DESCRIPTION"));
 						rB.setCost(rs.getDouble("COSTREQUESTED"));
@@ -176,7 +176,7 @@ Reimbursement rB = new Reimbursement();
 			String allResolvedRequestssql = "SELECT  *\r\n"
 					+ "FROM REIMBURSEMENT\r\n"
 					+ "WHERE (USERID = ?)\r\n"
-					+ "AND  STATUS != 'PENDING'";
+					+ "AND  STATUS != 'DECIDING'";
 
 			try {Connection connection = conncode.getConnection();
 				try (PreparedStatement allResolvedRequestPStatement = connection.prepareStatement(allResolvedRequestssql)){
@@ -184,7 +184,7 @@ Reimbursement rB = new Reimbursement();
 					allResolvedRequestPStatement.setInt(1,id);
 					ResultSet rs = allResolvedRequestPStatement.executeQuery();
 					while (rs.next()) {	
-						rB.setRequestid(rs.getInt("REQUESTID"));
+						rB.setRequestid(rs.getInt("REQUEST_ID"));
 						rB.setUserid(rs.getInt("USERID"));
 						rB.setDescription(rs.getString("DESCRIPTION"));
 						rB.setCost(rs.getDouble("COSTREQUESTED"));
