@@ -70,7 +70,7 @@ public class UserDAOpostgres implements UserDAO {
 			if (resultSet.next()) {
 				user = new User();
 				user.setId(id);
-				String fullName = resultSet.getString("full_name");
+				String fullName = resultSet.getString("fullname");
 				user.setFirstname(fullName.substring(0, fullName.indexOf(' ')));
 				user.setLastname(fullName.substring(fullName.indexOf(' ') + 1));
 				user.setUsername(resultSet.getString("username"));
@@ -98,7 +98,7 @@ public class UserDAOpostgres implements UserDAO {
 		while (resultSet.next()) {
 			User user = new User();
 			user.setId(resultSet.getInt("id"));
-			String fullName = resultSet.getString("full_name");
+			String fullName = resultSet.getString("fullname");
 			user.setFirstname(fullName.substring(0, fullName.indexOf(' ')));
 			user.setLastname(fullName.substring(fullName.indexOf(' ') + 1));
 			user.setUsername(resultSet.getString("username"));
@@ -122,7 +122,7 @@ public class UserDAOpostgres implements UserDAO {
 	public void update(User updateObj) throws SQLException {
 		Connection conn = conncode.getConnection();
 		try {
-			String sql = "update users set full_name=?, username=?, passwd=?, role_id=? "
+			String sql = "update users set fullname=?, username=?, passwd=?, roleid=? "
 					+ "where id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, updateObj.getFirstname() + " " + updateObj.getLastname());
@@ -205,7 +205,7 @@ public class UserDAOpostgres implements UserDAO {
 			if (resultSet.next()) {
 				user = new User();
 				user.setId(resultSet.getInt("id"));
-				String fullName = resultSet.getString("full_name");
+				String fullName = resultSet.getString("fullname");
 				user.setFirstname(fullName.substring(0, fullName.indexOf(' ')));
 				user.setLastname(fullName.substring(fullName.indexOf(' ') + 1));
 				user.setUsername(username);

@@ -30,13 +30,13 @@ public class ReimbursementPostgres implements ReimbursementDAO {
 		pstmt.setString(2, newObj.getDescription());
 		pstmt.setDouble(3, newObj.getCost());
 		 int statusid;
-		 if(newObj.getStatus().equals("")) {
+		 if(newObj.getStatus().equals("DECIDING")) {
 			 statusid =1;
 		 }
-		 else if(newObj.getStatus().equals("")) {
+		 else if(newObj.getStatus().equals("GRANTED")) {
 			 statusid=2;
 		 }
-		 else {
+		 else { 
 			 statusid=3;
 		 }
 		 pstmt.setInt(4,statusid);
@@ -119,7 +119,7 @@ public class ReimbursementPostgres implements ReimbursementDAO {
 		reimbursement.setCost(resultSet.getDouble(4));
 		int statusid = resultSet.getInt(5);
 		
-		 String status = (statusid == 1) ? "" : "";
+		 String status = (statusid == 1) ?  "GRANTED" : "REJECTED";
 		
 		reimbursement.setStatus(status);
 		return reimbursement;

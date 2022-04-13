@@ -1,38 +1,32 @@
 package Application;
 
-import java.sql.Connection;
-
-import Connection.Connectioncode;
-import Controllers.loginController;
+import Exceptions.UsernameUnavailableException;
+import Models.User;
+import Services.UserServices;
+import Services.UserServicesImpl;
 import io.javalin.Javalin;
-import static io.javalin.apibuilder.ApiBuilder.*;
+import io.javalin.http.HttpCode;
 
 public class App {
-	private static Connectioncode conncode = Connectioncode.getConnectionFactory();
-	public static void main (String[] args) {
-		try(Connection connection = conncode.getConnection()){
-			Javalin app = Javalin.create(config -> {
-				config.enableCorsForAllOrigins();
-			});
-			app.start();
+ private static UserServices userServ = new UserServicesImpl();
+ 
+ public static void main(String[] args) {
+	 Javalin app = Javalin.create(config ->{
+	});
+	 app.start(7070);
+	 
+	 app.post("/users", ctx -> {
+			// context bodyAsClass method will transform JSON data into
+			// a Java object as long as the JSON keys match the Java fields
+			User newUser = ctx.bodyAsClass(User.class);
 			
-			app.routes(() -> {
-				path("login", () ->{
-					get(loginController::getlogin);
-					
-					path ("{id}",() ->{
-						get(loginController::getloginbyid);
-						
-						put("requested", loginController:: requested);
-					});
-				});
-				
-				path("users", () ->{
-					
-				})
+			try {
+				newUser = userServ.register(newUser);
+				ctx.json(newUser);
+			} catch (UsernameUnavailableException e) {
+				ctx.status(HttpCode.CONFLICT); // 409 conflict
 			}
-			
-		
-	}
+		});
 
+ }
 }
