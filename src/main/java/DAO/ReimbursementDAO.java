@@ -1,13 +1,14 @@
 package DAO;
 
-import Models.Reimbursement;
+import java.util.List;
 
-public interface ReimbursementDAO {
-     
-	public Reimbursement submitReimbursementRequest(int usernum, String description, double cost);
-	public Reimbursement AdminApprovedDenyRequest(int requestid, String status);
-	public Reimbursement adminViewAllPendingRequest(int id);
+import Models.Reimbursement;
+import Models.User;
+
+public interface ReimbursementDAO extends MainDAO<Reimbursement> {
 	
-	public Reimbursement userViewPendingRequest(int id);
-	public Reimbursement userViewResolvedRequest(int id);
+	public List<Reimbursement> getByStatus(String status);
+	public List<Reimbursement> getByOwner(User owner);
+	
+
 }

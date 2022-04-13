@@ -12,7 +12,7 @@ public class Connectioncode {
 		private static Properties properties;
 
 		private Connectioncode() {
-			InputStream stream = Connectioncode.class.getClassLoader().getResourceAsStream("database.properties");
+			InputStream stream = Connectioncode.class.getClassLoader().getResourceAsStream("config.properties");
 			try {
 				properties = new Properties();
 				properties.load(stream);

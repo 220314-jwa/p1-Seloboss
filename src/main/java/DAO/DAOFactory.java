@@ -2,19 +2,19 @@ package DAO;
 
 public class DAOFactory {
     private static ReimbursementDAO reimbursementDAO = null;
-    private static LoginDAO loginDAO = null;
+    private static UserDAO userDAO = null;
 
     private DAOFactory() { }
-    public static LoginDAO getLoginDAO() {
+    public static UserDAO getUserDAO() {
         // make sure we're not recreating the dao if it already exists:
-        if (loginDAO == null) {
-            loginDAO = new LoginDAOPostgres();
+        if (userDAO == null) {
+            userDAO = new UserDAOpostgres();
         }
-        return loginDAO;
+        return userDAO;
     }
     public static ReimbursementDAO getReimbursementDAO() {
         if (reimbursementDAO == null)
-            reimbursementDAO = new ReimbursementDAOImpl();
+            reimbursementDAO = new ReimbursementPostgres();
         return reimbursementDAO;
     }
 }

@@ -1,5 +1,8 @@
 package Models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 	private int id;
 	private String firstname;
@@ -7,6 +10,7 @@ public class User {
 	private String username;
 	private String password;
 	private String type;
+	private List<Reimbursement> reimbursements;
 	
 	
 	public User() {
@@ -16,6 +20,7 @@ public class User {
 		id = 0;
 		firstname = "";
 		lastname = "";
+		reimbursements = new ArrayList<>();
 	}
 
 
@@ -76,6 +81,12 @@ public class User {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	public List<Reimbursement> getReimbursements() {
+		return reimbursements;
+	}
+	public void setReimbursements(List<Reimbursement> reimbursements) {
+		this.reimbursements = reimbursements;
 	}
 
 

@@ -65,7 +65,7 @@ public class Reimbursement {
 		result = prime*result +((description == null)?0:description.hashCode());
 		result = prime*result +userid;
 		result = prime*result + requestid;
-		result = prime*result+((status ==null) ? 0: status.hashCode());
+		result = prime*result+((status ==null)? 0: status.hashCode());
 		return result;
 	}
 
