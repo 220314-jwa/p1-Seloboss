@@ -8,11 +8,12 @@ public class Reimbursement {
 	private String status; 
 	
 	public Reimbursement() {
-		this.requestid=requestid;
-		this.userid=userid;
-		this.description=description;
-		this.costs=costs;
-		this.status=status;
+		requestid = 10;
+		userid = 5;
+		description = "";
+		costs = 120.0;
+		setStatus("Granted");
+		
 	}
 
 	public int getRequestid() {
@@ -65,7 +66,6 @@ public class Reimbursement {
 		result = prime*result +((description == null)?0:description.hashCode());
 		result = prime*result +userid;
 		result = prime*result + requestid;
-		result = prime*result+((status ==null)? 0: status.hashCode());
 		return result;
 	}
 
@@ -89,18 +89,13 @@ public class Reimbursement {
 			return false;
 		if (requestid != other.requestid)
 			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Reimbursement [requestid=" + requestid + ", userid=" + userid + ", description="
-				+ description + ", costs=" + costs + ", status=" + status + "]";
+				+ description + ", costs=" + costs + "]";
 	}
 	
 	

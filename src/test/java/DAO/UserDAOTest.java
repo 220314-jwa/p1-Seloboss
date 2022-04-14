@@ -39,7 +39,7 @@ public class UserDAOTest {
 	
 	@Test
 	public void getByUsernameExists() {
-		User user = userDao.getByUsername("test");
+		User user = userDao.getByUsername("selome");
 		assertEquals(testUser, user);
 	}
 	

@@ -1,5 +1,8 @@
 package Application;
 
+import java.util.Map;
+
+import Exceptions.IncorrectInfoException;
 import Exceptions.UsernameUnavailableException;
 import Models.User;
 import Services.UserServices;
@@ -16,17 +19,27 @@ public class App {
 	 app.start(7070);
 	 
 	 app.post("/users", ctx -> {
-			// context bodyAsClass method will transform JSON data into
-			// a Java object as long as the JSON keys match the Java fields
 			User newUser = ctx.bodyAsClass(User.class);
 			
 			try {
 				newUser = userServ.register(newUser);
-				ctx.json(newUser);
+				ctx.json(userServ);
 			} catch (UsernameUnavailableException e) {
 				ctx.status(HttpCode.CONFLICT); // 409 conflict
 			}
 		});
+      app.post("/auth", ctx -> {
+		Map<String,String> credentials = ctx.bodyAsClass(Map.class);
+		String username = credentials.get("username");
+		String password = credentials.get("password");
+		
+		try {
+			User user = userServ.login(username, password);
+			ctx.json(user);
+		} catch (IncorrectInfoException e) {
+			ctx.status(HttpCode.UNAUTHORIZED); // 401 unauthorized
+		}
+	});
 
- }
+}
 }

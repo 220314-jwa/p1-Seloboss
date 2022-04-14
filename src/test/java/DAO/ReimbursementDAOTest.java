@@ -25,7 +25,7 @@ public class ReimbursementDAOTest {
 
 	@BeforeAll
 	public static void setUp() {
-testReimbursement.setUserid(10);
+		testReimbursement.setUserid(10);
 		
 		Random rand  = new Random();
 		testNewReimbursement.setUserid(12 + rand.nextInt());
@@ -40,7 +40,7 @@ testReimbursement.setUserid(10);
 
 	@Test
 	public void getByStatus() {
-		String testStatus = "Pending";
+		String testStatus = "Deciding";
 		List<Reimbursement> reimbursements = reimbursementDao.getByStatus(testStatus);
 		
 		boolean onlyCorrectStatus = true;
