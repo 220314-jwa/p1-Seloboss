@@ -11,7 +11,7 @@ public class Connectioncode {
 	 private static Connectioncode connectioncode = null;
 		private static Properties properties;
 
-		private Connectioncode() {
+		public Connectioncode() {
 			InputStream stream = Connectioncode.class.getClassLoader().getResourceAsStream("config.properties");
 			try {
 				properties = new Properties();

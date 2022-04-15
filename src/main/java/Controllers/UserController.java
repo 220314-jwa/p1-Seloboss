@@ -1,5 +1,7 @@
 package Controllers;
 
+import java.util.Map;
+
 import Exceptions.IncorrectInfoException;
 import Exceptions.UsernameUnavailableException;
 import Models.User;
@@ -30,7 +32,7 @@ public class UserController {
         String password = credentials.get("password");
 
         try {
-            User user = userServ.logIn(username, password);
+            User user = userServ.login(username, password);
             ctx.json(user);
         } catch (IncorrectInfoException e) {
             ctx.status(HttpCode.UNAUTHORIZED); // 401 unauthorized
@@ -54,4 +56,3 @@ public class UserController {
     }
 }
 
-}

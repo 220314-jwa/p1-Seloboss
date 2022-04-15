@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -90,16 +91,18 @@ public class UserDAOpostgres implements UserDAO {
 
 	@Override
 	public List<User> getAll() {
-		List<User> users = new LinkedList<>();
+		List<User> users = new ArrayList<User>();
+	
 		try (Connection conn = conncode.getConnection()) {
-			String sql = "select * from users left join manager on users.id=manager.owner_id";
+			String sql = "select * from users where fullname=?, username=? passwd=?";
+			sql.length();
 			Statement stmt = conn.createStatement();
 		ResultSet resultSet = stmt.executeQuery(sql);
 		while (resultSet.next()) {
 			User user = new User();
 			user.setId(resultSet.getInt("id"));
 			String fullName = resultSet.getString("fullname");
-			user.setFirstname(fullName.substring(0, fullName.indexOf(' ')));
+			user.setFirstname(fullName.substring(0,fullName.indexOf(' ')));
 			user.setLastname(fullName.substring(fullName.indexOf(' ') + 1));
 			user.setUsername(resultSet.getString("username"));
 			user.setPassword(resultSet.getString("passwd"));
@@ -196,8 +199,7 @@ public class UserDAOpostgres implements UserDAO {
 	public User getByUsername(String username) {
 		User user = null;
 		try(Connection conn = conncode.getConnection()){
-			String sql = "select * from users left join manager on users.id=manager.owner_id"
-					+ " where users.username = ?";
+			String sql = "select * from users where users.username = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, username);
 			

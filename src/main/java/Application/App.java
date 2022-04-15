@@ -2,6 +2,8 @@ package Application;
 
 import java.util.Map;
 
+import Controllers.ReimbursementController;
+import Controllers.UserController;
 import Exceptions.IncorrectInfoException;
 import Exceptions.UsernameUnavailableException;
 import Models.User;
@@ -9,6 +11,7 @@ import Services.UserServices;
 import Services.UserServicesImpl;
 import io.javalin.Javalin;
 import io.javalin.http.HttpCode;
+import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class App {
 	private static UserServices userServ = new UserServicesImpl();
@@ -17,31 +20,22 @@ public class App {
 		Javalin app = Javalin.create(config -> {
 			config.enableCorsForAllOrigins();
 		});
-		app.start();
+		app.start(7070);
 
-		// cleaning up my main method by switching to app.routes and moving logic to controllers
+	
 		app.routes(() -> {
-			// all paths starting with /pets
-			path("reimbursement", () -> {
-				get(ReimbursementController::getReimbursements);
-				// /pets/4
 				path("{id}", () -> {
-					get(ReimbursementController::getReimbursementById);
-					// /pets/4/adopt
-					put("submit", ReimbursementController::submitReimbursement);
 				});
 			});
-			// all paths starting with /users
 			path("users", () -> {
-				post(UsersController::registerUser);
+				post(UserController::registerUser);
 				path("{id}", () -> {
-					get(UsersController::getUserById);
+					get(UserController::getUserById);
 				});
 			});
-			// all paths starting with /auth
-			path("auth", () -> {
-				post(UsersController::logIn);
+			path("/auth", () -> {
+				post(UserController::logIn);
 			});
-		});
-
+		
+	}
 	}

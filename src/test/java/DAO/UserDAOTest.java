@@ -3,6 +3,7 @@ package DAO;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Random;
 
 import org.junit.jupiter.api.AfterAll;
@@ -39,7 +40,7 @@ public class UserDAOTest {
 	
 	@Test
 	public void getByUsernameExists() {
-		User user = userDao.getByUsername("selome");
+		User user = userDao.getByUsername("snicholes");
 		assertEquals(testUser, user);
 	}
 	
@@ -82,6 +83,7 @@ public class UserDAOTest {
 	
 	@Test
 	public void getAll() {
+		List<User> user = userDao.getAll();
 		assertNotNull(userDao.getAll());
 	}
 	
